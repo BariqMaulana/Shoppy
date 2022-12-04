@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk 32
-    flavorDimensions "mode"
+//    flavorDimensions "mode"
     defaultConfig {
         applicationId "com.example.shoppy"
         minSdk 21
@@ -27,17 +27,17 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    productFlavors {
-        sandbox {
-            buildConfigField "String", "BASE_URL", "\"https://shoppy-backend.000webhostapp.com/index.php\""
-            buildConfigField "String", "CLIENT_KEY", "\"SB-Mid-client-IzACPDj957Q2zzPx\""
-        }
+//    productFlavors {
+//        sandbox {
+//            buildConfigField "String", "BASE_URL", "\"https://shoppy-backend.000webhostapp.com/index.php\""
+//            buildConfigField "String", "CLIENT_KEY", "\"SB-Mid-client-IzACPDj957Q2zzPx\""
+//        }
 
 //        production {
 //            buildConfigField "String", "BASE_URL", "\"https://merchant-url-production.com/\""
 //            buildConfigField "String", "CLIENT_KEY", "\"VT-CLIENT-production-client-key\""
 //        }
-    }
+//    }
 }
 
 dependencies {
@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:1.2.0'
 
     //Midtrans
-    implementation 'com.midtrans:uikit:1.34.0-SANDBOX'
+//    implementation 'com.midtrans:uikit:1.34.0-SANDBOX'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'

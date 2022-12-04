@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
     CardView scanner, cart, receipt, logout;
-    TextView verifyText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,6 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), Login.class));
                 finish();
             }
