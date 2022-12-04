@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "742604809557",
+    "firebase_url": "https://shoppy-dafbb-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "shoppy-dafbb",
+    "storage_bucket": "shoppy-dafbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742604809557:android:906c6cd0026d587dd3bbdc",
+        "android_client_info": {
+          "package_name": "com.example.shoppy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742604809557-j5qv2lt21c9q154vttsnt7vtnpdtaaql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh8dz5GTslEqxvdjinJWKbULUWGHOgIWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742604809557-j5qv2lt21c9q154vttsnt7vtnpdtaaql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
