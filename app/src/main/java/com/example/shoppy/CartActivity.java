@@ -1,12 +1,16 @@
 package com.example.shoppy;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +27,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.paypal.android.sdk.payments.PayPalAuthorization;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalFuturePaymentActivity;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 
+
+import org.json.JSONException;
+
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class CartActivity extends AppCompatActivity {
@@ -36,13 +51,22 @@ public class CartActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
     DatabaseReference mCart, reference;
-    String userId, phone, name;
+    String userId, phone, name, a, cName;
 
     FirebaseRecyclerAdapter<com.example.shoppy.Model.Cart, CartViewHolder>adapter;
 
     double totalPrice = 0.00;
     int childCount = 0;
     int m = 0;
+
+    private static final String CLIENT_ID = "AYG1dTwC1gcbvuH-WkKycoG60vklp9SF7DJJIliFD_knl5dncFHp5nCE06hwoTypbwCF4luVygF0HIcV";
+    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
+    public static final String EXTRA_NUMBER = "com.example.shoppy.EXTRA_TEXT";
+    private static final int REQUEST_CODE_PAYMENT = 1;
+    private static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
+    private static PayPalConfiguration config;
+    PayPalPayment thingsToBuy;
+
 
 
     String[] PIDArray = null;
@@ -113,8 +137,116 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mCart.removeValue();
+                tvTotalAmount.setText("Total Price: Rp. 0.00");
             }
         });
+
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makePayment();
+            }
+        });
+
+        configPayPal();
+    }
+
+
+    private void configPayPal() {
+
+        config = new PayPalConfiguration()
+                .environment(CONFIG_ENVIRONMENT)
+                .clientId(CLIENT_ID)
+                .merchantName("Shoppy Payment")
+                .merchantPrivacyPolicyUri(Uri.parse("https://wwww.example.com/privacy"))
+                .merchantUserAgreementUri(Uri.parse("https://wwww.example.com/legal"));
+
+    }
+
+    private void makePayment() {
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        startService(intent);
+
+        thingsToBuy = new PayPalPayment(
+                new BigDecimal(String.valueOf(""+ totalPrice)), "MYR", "Payment", PayPalPayment.PAYMENT_INTENT_SALE);
+        Intent payment = new Intent(this, PaymentActivity.class);
+        payment.putExtra(PaymentActivity.EXTRA_PAYMENT, thingsToBuy);
+        payment.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        startActivityForResult(payment, REQUEST_CODE_PAYMENT);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_PAYMENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                if (confirm != null) {
+
+                    try {
+                        System.out.println(confirm.toJSONObject().toString(4));
+                        System.out.println(confirm.getPayment().toJSONObject().toString(4));
+                        Toast.makeText(this, "Payment Successful", Toast.LENGTH_LONG).show();
+
+                        DecimalFormat df = new DecimalFormat("#,###,##0.00");
+                        //priceTotal = df.format(TotalPrice);
+                        //Double priceTotal = Double.parseDouble(String.valueOf(TotalPrice));
+                        Intent intent = new Intent(this,Receipt.class);
+                        intent.putExtra(EXTRA_NUMBER, df.format(totalPrice));
+                        intent.putExtra("pID",PIDArray);
+                        intent.putExtra("pName",PNameArray);
+                        intent.putExtra("pPrice",PPriceArray);
+                        intent.putExtra("pQuantity",PQuantityArray);
+                        intent.putExtra("count",String.valueOf(childCount));
+                        intent.putExtra("cName",cName);
+                        intent.putExtra("cPhone",a);
+                        //m = 0;
+                        startActivity(intent);
+                        mCart.removeValue();
+
+                    } catch (JSONException e) {
+
+                        Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+
+                    }
+
+
+                }
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Payment has been canceled", Toast.LENGTH_LONG).show();
+            } else if (requestCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+                Toast.makeText(this, "error occurred", Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == REQUEST_CODE_FUTURE_PAYMENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                PayPalAuthorization authorization = data.getParcelableExtra(PayPalFuturePaymentActivity.EXTRA_RESULT_AUTHORIZATION);
+                if (authorization != null) {
+                    try {
+                        Log.i("FuturePaymentExample", authorization.toJSONObject().toString(4));
+                        String authorization_code = authorization.getAuthorizationCode();
+                        Log.d("FuturePaymentExample", authorization_code);
+
+                        Log.e("paypal", "future payment code received from PayPal  :" + authorization_code);
+
+                    } catch (JSONException e) {
+                        Toast.makeText(this, "Failure Occurred", Toast.LENGTH_LONG).show();
+                        Log.e("FuturePaymentExample", "an extremely unlikely failure occurred:  ", e);
+
+                    }
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "payment has been cancelled", Toast.LENGTH_LONG).show();
+                Log.d("FuturePaymentExample", "The user cancelled.");
+            } else if (requestCode == PayPalFuturePaymentActivity.RESULT_EXTRAS_INVALID) {
+                Toast.makeText(this, "error occurred", Toast.LENGTH_LONG).show();
+                Log.d("FuturePaymentExample", "Probably the attempt to previously start the PayPalService had an invalid PayPalConfiguration. Please see the docs");
+            }
+        }
     }
 
     private void loadCart() {
