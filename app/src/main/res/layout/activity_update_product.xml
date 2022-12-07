@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProductDetails"
-    android:background="#eaf3e3">
+    android:background="#b59f91">
 
     <ImageView
         android:id="@+id/image_details"
@@ -60,15 +60,13 @@
         android:layout_width="184dp"
         android:layout_height="59dp"
         android:layout_below="@+id/price_details"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:elevation="6dp"
-        app:initialNumber="1"
+        app:backGroundColor="#98ad76"
         app:finalNumber="10"
-        app:backGroundColor="@color/colorPrimary"
-        android:layout_centerHorizontal="true"
-        app:textSize="16dp"
-        >
-    </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+        app:initialNumber="1"
+        app:textSize="16dp"></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
     <Button
         android:id="@+id/addToCart_button1"
@@ -79,6 +77,7 @@
         android:layout_marginBottom="100dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:backgroundTint="#291c14"
         android:text="Update"
         android:textColor="@android:color/white"
         android:textSize="18dp" />

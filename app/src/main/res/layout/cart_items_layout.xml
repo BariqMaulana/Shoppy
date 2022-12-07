@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     app:cardElevation="4dp"
-    android:background="@color/colorPrimaryDark"
+    android:background="#241f1c"
     >
 
     <LinearLayout
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical|start"
-                android:text="RM 10000"
+                android:text="Rp. 10000"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textStyle="italic" />
@@ -66,7 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Delete"
-            android:textColor="@color/colorAccent"
+            android:backgroundTint="#e34a39"
+            android:textColor="@color/black"
             android:layout_marginRight="5dp"/>
 
 

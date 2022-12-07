@@ -20,6 +20,7 @@
             android:id="@+id/total_price"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/speedy"
             android:text="Total Price = Rp. 0"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -36,7 +37,7 @@
         android:layout_above="@+id/buttons"
         android:layout_below="@+id/r111"
         android:scrollbars="vertical"
-        android:background="#eaf3e3"/>
+        android:background="#f2dabb"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +46,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:id="@+id/buttons"
-        android:background="#eaf3e3">
+        android:background="#f2dabb">
 
 
         <Button
@@ -56,6 +57,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Clear Cart"
+            android:backgroundTint="#291c14"
             android:textColor="@android:color/white"
             android:textSize="20dp" />
 
@@ -66,6 +68,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:backgroundTint="#291c14"
             android:text="Proceed"
             android:textColor="@android:color/white"
             android:textSize="20dp" />

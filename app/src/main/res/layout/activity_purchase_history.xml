@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingTop="20dp"
     tools:context=".PurchaseHistory"
-    android:background="#eaf3e3">
+    android:background="#b59f91">
 
 
     <TextView
@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/speedy"
         android:text="Purchase History"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="27dp"
@@ -29,7 +30,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
-        android:text="The receipt format is date and time, click on desired receipt and download."
+        android:fontFamily="@font/hardtown_italic"
+        android:text="Click on desired receipt and download."
         android:textSize="15sp"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="188dp" />
@@ -54,7 +56,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:id="@+id/buttons"
-            android:background="#eaf3e3">
+            android:background="#b59f91">
 
 
 
@@ -67,6 +69,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:text="dashboard"
+                android:backgroundTint="#291c14"
                 android:textColor="@android:color/white"
                 android:textSize="20dp" />
 

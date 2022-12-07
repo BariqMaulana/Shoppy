@@ -17,7 +17,6 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        //define cards
         scanner =  findViewById(R.id.toScan);
         cart =  findViewById(R.id.toCart);
         receipt =  findViewById(R.id.toReceipts);
@@ -26,7 +25,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         cart.setOnClickListener(this);
         receipt.setOnClickListener(this);
 
-        logout = (CardView)findViewById(R.id.toLogout);
+        logout = findViewById(R.id.toLogout);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -45,6 +45,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:src="@mipmap/ic_shoppy"
                         android:layout_alignParentLeft="true"/>
 
 
@@ -60,6 +61,7 @@
             android:id="@+id/logo_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/speedy"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:text="Welcome"
@@ -69,6 +71,7 @@
             android:id="@+id/slogan_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/hardtown_italic"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:text="Sign Up to start shopping"
@@ -173,6 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:backgroundTint="#291c14"
             android:text="Register"
             android:textColor="#fff" />
 

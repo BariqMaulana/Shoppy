@@ -1,8 +1,11 @@
 package com.example.shoppy;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,6 +16,8 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.OpenableColumns;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,13 +30,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,6 +61,7 @@ public class Receipt extends AppCompatActivity {
     DatabaseReference dbReference;
     StorageReference storageReference;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +71,9 @@ public class Receipt extends AppCompatActivity {
 
         dbReference = FirebaseDatabase.getInstance().getReference("Receipts");
 
-        //Put image logo on PDF
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_foreground);
-        scaledBitmap = Bitmap.createScaledBitmap(bmp, 550,500,false);
+//        Put image logo on PDF
+//        bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_shoppy);
+//        scaledBitmap = Bitmap.createScaledBitmap(bmp, 550,500,false);
 
         //Get total price from Cart
         Intent intent = getIntent();
@@ -74,7 +84,7 @@ public class Receipt extends AppCompatActivity {
         String[] pPrice = intent.getStringArrayExtra("pPrice");
         String[] pQuantity = intent.getStringArrayExtra("pQuantity");
 
-        String count = intent.getStringExtra("Count");
+        String count = intent.getStringExtra("count");
         int Count = Integer.parseInt(count);
 
         cName = intent.getStringExtra("cName");
@@ -82,12 +92,13 @@ public class Receipt extends AppCompatActivity {
 
 
         ActivityCompat.requestPermissions(this, new String[] {
-                Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
-        createPDF(totalPrice, pID, pName, pPrice, pQuantity, Count, cName, cPhone);
+        createPDF(totalPrice, pID, pName, pPrice, pQuantity, Count, cPhone, cName);
     }
 
-    private void createPDF(final String totalPrice, final String[] pID, final String[] pName, final String[] pPrice, final String[] pQuantity, final int count, String cName, String cPhone) {
+
+    private void createPDF(final String totalPrice, final String[] pID, final String[] pName, final String[] pPrice, final String[] pQuantity, final int count, String cPhone, String cName) {
         dateObj = new Date();
 
         PdfDocument myPdfDocument = new PdfDocument();
@@ -138,8 +149,8 @@ public class Receipt extends AppCompatActivity {
         canvas.drawLine(1380, 820, 1380, 850, myPaint);
         canvas.drawLine(1500, 820, 1500, 850, myPaint);
 
-        //image in pdf
-        canvas.drawBitmap(scaledBitmap, 30, 40, myPaint);
+//        image in pdf
+//        canvas.drawBitmap(scaledBitmap, 30, 40, myPaint);
 
         int b = 900;
 
@@ -162,10 +173,12 @@ public class Receipt extends AppCompatActivity {
         time = dateFormat.format(dateObj);
         dateFormat = new SimpleDateFormat("ddMMyy");
         y = dateFormat.format(dateObj);
-        File file = new File(Environment.getExternalStorageDirectory(), time + "_" + y + ".pdf");
+
+//        File file = new File(Environment.getExternalStorageDirectory(), time + "_" + y + ".pdf");
+        File file = new File(this.getExternalFilesDir("/"), time + "_" + y + ".pdf");
 
         try {
-            myPdfDocument.writeTo(new FileOutputStream(file));
+            myPdfDocument.writeTo(new FileOutputStream(String.valueOf(file)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -192,8 +205,12 @@ public class Receipt extends AppCompatActivity {
         time = dateFormat.format(dateObj);
         w = z +"_"+ time;
 
+        FirebaseStorage fStorage = FirebaseStorage.getInstance();
+        storageReference = fStorage.getReferenceFromUrl("gs://shoppy-dafbb.appspot.com");
         StorageReference reference = storageReference.child(cPhone + "/" + w +".pdf");
-        reference.putFile(Uri.fromFile(data)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        UploadTask uploadTask = reference.putFile(Uri.fromFile(data));
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
