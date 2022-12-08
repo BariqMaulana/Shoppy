@@ -107,7 +107,7 @@ public class CartActivity extends AppCompatActivity {
                     cName = name;
                     a = phone;
                     mCart = mDatabase.getReference("Cart").child(phone);
-                    Toast.makeText(CartActivity.this, "String.valueOf(Cart)", Toast.LENGTH_SHORT).show();
+
                     mCart.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -315,5 +315,12 @@ public class CartActivity extends AppCompatActivity {
             }
         };
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this,Dashboard.class);
+        startActivity(intent);
     }
 }

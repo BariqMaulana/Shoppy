@@ -5,7 +5,14 @@
       <map>
         <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_cart.xml" value="0.24615384615384617" />
         <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_dashboard.xml" value="0.10989583333333333" />
+        <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_login.xml" value="0.24615384615384617" />
         <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
+        <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_product_details.xml" value="0.24615384615384617" />
+        <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_purchase_history.xml" value="0.24615384615384617" />
+        <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_register.xml" value="0.24615384615384617" />
+        <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_scan_barcode.xml" value="0.24615384615384617" />
+        <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/activity_update_product.xml" value="0.24615384615384617" />
+        <entry key="..\:/Exercises/Android Studio Projects/Shoppy/app/src/main/res/layout/cart_items_layout.xml" value="0.24615384615384617" />
         <entry key="..\:/Shoppy/app/src/main/res/layout/activity_cart.xml" value="0.25" />
         <entry key="..\:/Shoppy/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
         <entry key="..\:/Shoppy/app/src/main/res/layout/activity_login.xml" value="0.25" />

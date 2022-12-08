@@ -70,7 +70,6 @@ public class ProductDetails extends AppCompatActivity {
                 User userProfile = snapshot.getValue(User.class);
                 if (userProfile != null) {
                     a = userProfile.phoneNo;
-                    Toast.makeText(ProductDetails.this, "TESTESTEST", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -185,6 +184,13 @@ public class ProductDetails extends AppCompatActivity {
         else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this,Dashboard.class);
+        startActivity(intent);
     }
 
 }

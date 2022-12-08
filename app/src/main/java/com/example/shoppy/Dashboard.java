@@ -51,4 +51,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             default:break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this,Dashboard.class);
+        startActivity(intent);
+    }
 }

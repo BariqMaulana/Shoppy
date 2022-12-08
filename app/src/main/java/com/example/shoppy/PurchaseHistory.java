@@ -119,7 +119,6 @@ public class PurchaseHistory extends AppCompatActivity {
                     uploadPDFS.add(uploadPDF);
                 }
 
-                Toast.makeText(PurchaseHistory.this, "TESTESTEST2", Toast.LENGTH_SHORT).show();
                 String[] uploads = new String[uploadPDFS.size()];
 
                 for (int i = 0; i < uploads.length; i++) {
@@ -136,5 +135,12 @@ public class PurchaseHistory extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this,Dashboard.class);
+        startActivity(intent);
     }
 }
