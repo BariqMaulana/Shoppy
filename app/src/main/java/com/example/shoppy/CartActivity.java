@@ -307,7 +307,7 @@ public class CartActivity extends AppCompatActivity {
                         Toast.makeText(CartActivity.this, "This item is removed!", Toast.LENGTH_SHORT).show();
 
                         Double DProductPrice = (Double.valueOf(cart.getPrice())) * (Double.valueOf((cart.getQuantity())));
-                        totalPrice  = totalPrice + DProductPrice;
+                        totalPrice  = totalPrice - DProductPrice;
                         DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
                         tvTotalAmount.setText("Total Price: Rp. " + String.valueOf(df2.format(totalPrice)));
                     }

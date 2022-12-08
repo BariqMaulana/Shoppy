@@ -12,8 +12,7 @@
         android:id="@+id/image_details"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/name_details"
@@ -25,8 +24,7 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp" />
 
 
     <TextView
@@ -39,8 +37,7 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/productID"
@@ -52,8 +49,7 @@
         android:textStyle="bold"
         android:textSize="14sp"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp" />
 
     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
         android:id="@+id/number_Btn1"
